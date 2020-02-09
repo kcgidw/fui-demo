@@ -1,5 +1,6 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
 	const config = {
@@ -7,9 +8,15 @@ module.exports = (env) => {
 			index: path.resolve(__dirname, 'public', 'js', 'index.js'),
 		},
 		output: {
-			path: path.resolve(__dirname, 'public', 'js'),
+			publicPath: path.resolve(__dirname, 'public'),
+			path: path.resolve(__dirname, 'public'),
 			filename: '[name].bundle.min.js',
 		},
+		plugins: [
+			new MiniCssExtractPlugin({
+				filename: 'style.bundle.css',
+			}),
+		],
 		module: {
 			rules: [
 				{
@@ -29,7 +36,27 @@ module.exports = (env) => {
 				},
 				{
 					test: /\.(sa|sc|c)ss$/,
-					use: ['style-loader', 'css-loader', 'sass-loader'],
+					use: [
+						{
+							loader: MiniCssExtractPlugin.loader,
+							options: {
+								// publicPath: path.resolve(__dirname, 'public'),
+							},
+						},
+						// 'style-loader',
+						{
+							loader: 'css-loader',
+							options: {
+								sourceMap: true,
+							},
+						},
+						{
+							loader: 'sass-loader',
+							options: {
+								sourceMap: true,
+							},
+						},
+					],
 				},
 				{
 					test: /\.(png|jpg|gif)$/,
@@ -42,13 +69,19 @@ module.exports = (env) => {
 						},
 					],
 				},
+				// {
+				// 	test: /\.html$/,
+				// 	loader: 'html-loader',
+				// },
 			],
 		},
-		resolve: {
-			extensions: ['.js', '.jsx'],
-			alias: {
-				assets: path.resolve(__dirname, 'assets'),
-			},
+		resolve: {},
+		devtool: 'source-map',
+		devServer: {
+			contentBase: path.resolve(__dirname, 'public'),
+			compress: true,
+			hot: true,
+			index: 'index.html',
 		},
 	};
 
@@ -57,19 +90,12 @@ module.exports = (env) => {
 			mode: 'production',
 			optimization: {
 				minimize: true,
-				minimizer: [new TerserPlugin({ sourceMap: false })],
+				minimizer: [new TerserWebpackPlugin({ sourceMap: false })],
 			},
 		});
 	} else if (env.development) {
 		Object.assign(config, {
 			mode: 'development',
-			devtool: 'source-map',
-			devServer: {
-				contentBase: path.join(__dirname, 'public'),
-				compress: true,
-				publicPath: '/js/',
-				hot: true,
-			},
 		});
 	} else {
 		throw new Error('Bad webpack env');
