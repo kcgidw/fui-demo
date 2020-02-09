@@ -1,156 +1,160 @@
 $base-color: hsl(160, 70, 70);
-$base-color-t1: hsla(160, 70, 70, 0.8);
-$base-color-t2: hsla(160, 70, 70, 0.1);
+$base-color-t1: hsla(160, 70, 70, 0.7);
+$base-color-t2: hsla(160, 70, 70, 0.5);
 $sec-color: hsla(25, 70%, 70%, 1);
 $sec-color-t2: hsla(25, 70%, 70%, 0.1);
 $ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 
 body {
-  margin: 0;
-  padding: 0;
-  color: $base-color;
-  font-family: Cairo, sans-serif;
-  font-size: 40px;
+	margin: 0;
+	padding: 0;
+	color: $base-color;
+	font-family: Cairo, sans-serif;
+	font-size: 40px;
 }
 
 #gradient-bg {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(ellipse, hsla(188, 80%, 8%, 1) 0%, hsla(220, 91%, 5%, 1) 100%);
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background: radial-gradient(ellipse, hsla(188, 80%, 8%, 1) 0%, hsla(220, 91%, 5%, 1) 100%);
 }
 
 #scene {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-  perspective: 1800px;
-  position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+	perspective: 1800px;
+	position: relative;
 }
 
 #camera {
-  margin: 0 auto;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	margin: 0 auto;
+	height: 100%;
+	position: relative;
+	transform-style: preserve-3d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #grid-bg {
-  position: absolute;
-  width: 5000px;
-  height: 5000px;
-  left: calc(-5000px / 2);
-  top: calc(-5000px / 2);
-  background: repeating-linear-gradient(
-      to bottom,
-      $base-color-t2,
-      $base-color-t2 3px,
-      hsla(0, 0%, 0%, 0%) 4px,
-      hsla(0, 0%, 0%, 0%) 10px,
-      $base-color-t2 12px
-    ),
-    repeating-linear-gradient(
-      to left,
-      $base-color-t2,
-      $base-color-t2 3px,
-      hsla(0, 0%, 0%, 0%) 4px,
-      hsla(0, 0%, 0%, 0%) 10px,
-      $base-color-t2 12px
-    );
-  opacity: 0.1;
-  transform: translateZ(0px);
+	$w: 300%;
+	$h: 200%;
+	position: absolute;
+	width: $w;
+	height: $h;
+	left: calc($w / 2);
+	top: calc($h / 2);
+	background: repeating-linear-gradient(
+			to bottom,
+			$base-color,
+			$base-color 2px,
+			hsla(0, 0%, 0%, 0%) 4px,
+			hsla(0, 0%, 0%, 0%) 10px,
+			$base-color 12px
+		),
+		repeating-linear-gradient(
+			to left,
+			$base-color,
+			$base-color 2px,
+			hsla(0, 0%, 0%, 0%) 4px,
+			hsla(0, 0%, 0%, 0%) 10px
+		);
+	opacity: 0.1;
+	transform: translateZ(0px);
 }
 
 .stack {
-  position: absolute;
-  width: 600px;
-  height: 250px;
-  transform-style: preserve-3d;
-  text-align: center;
+	position: absolute;
+	width: 600px;
+	height: 250px;
+	transform-style: preserve-3d;
+	text-align: center;
 }
 .box-frame {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
 
-  .box {
-    margin: auto;
-    height: 100%;
-    transition: transform 0.5s $ease-out-cubic, width 0s ease-out;
-    animation-duration: 0.5s, 0.3s;
-    animation-fill-mode: both;
-    animation-timing-function: ease, ease-in-out;
-    animation-delay: 0s;
-    &.upper {
-      border: 2px solid $base-color-t1;
-      color: $base-color-t1;
-      animation-name: flicker-t1, sliding-doors-open;
-    }
-    &.lower {
-      // opacity: 0.2; Opacity causes graphical glitches on FF
-      // border: 2px solid $base-color-t2;
-      // color: $base-color-t2;
-      border: 2px solid $base-color-t2;
-      color: $base-color-t2;
-      user-select: none;
-      animation-name: flicker-t2, sliding-doors-open;
-    }
-  }
+	.box {
+		margin: auto;
+		height: 100%;
+		transition: transform 0.5s $ease-out-cubic, width 0s ease-out;
+		animation-duration: 0.5s, 0.3s;
+		animation-fill-mode: both;
+		animation-timing-function: ease, ease-in-out;
+		animation-delay: 0s;
+		&.upper {
+			border: 2px solid $base-color-t1;
+			color: $base-color-t1;
+			animation-name: flicker, sliding-doors-open;
+		}
+		&.lower {
+			opacity: 0.3;
+			user-select: none;
+			animation-name: flicker, sliding-doors-open;
+			.box-content {
+				opacity: 0.4;
+			}
+		}
+	}
 }
 
 .corners-frame {
-  $pad: 35px;
-  position: absolute;
-  width: calc(600px + #{$pad});
-  height: calc(250px + #{$pad});
-  left: calc(-1 * #{$pad} / 2);
-  top: calc(-1 * #{$pad} / 2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform-style: preserve-3d;
+	$pad: 35px;
+	position: absolute;
+	width: calc(600px + #{$pad});
+	height: calc(250px + #{$pad});
+	left: calc(-1 * #{$pad} / 2);
+	top: calc(-1 * #{$pad} / 2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform-style: preserve-3d;
+
+	&.lower {
+		opacity: 0.4;
+	}
 }
 
 @function genCorners($col) {
-  $len: 5px;
-  @return linear-gradient(to right, $col $len, transparent $len) 0 0,
-    linear-gradient(to right, $col $len, transparent $len) 0 100%,
-    linear-gradient(to left, $col $len, transparent $len) 100% 0,
-    linear-gradient(to left, $col $len, transparent $len) 100% 100%,
-    linear-gradient(to bottom, $col $len, transparent $len) 0 0,
-    linear-gradient(to bottom, $col $len, transparent $len) 100% 0,
-    linear-gradient(to top, $col $len, transparent $len) 0 100%,
-    linear-gradient(to top, $col $len, transparent $len) 100% 100%;
+	$len: 5px;
+	@return linear-gradient(to right, $col $len, transparent $len) 0 0,
+		linear-gradient(to right, $col $len, transparent $len) 0 100%,
+		linear-gradient(to left, $col $len, transparent $len) 100% 0,
+		linear-gradient(to left, $col $len, transparent $len) 100% 100%,
+		linear-gradient(to bottom, $col $len, transparent $len) 0 0,
+		linear-gradient(to bottom, $col $len, transparent $len) 100% 0,
+		linear-gradient(to top, $col $len, transparent $len) 0 100%,
+		linear-gradient(to top, $col $len, transparent $len) 100% 100%;
 }
 .corners {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
 
-  animation-name: zoom, fadein;
-  animation-duration: 0.4s, 0.5s;
-  animation-timing-function: $ease-out-cubic, ease-out;
-  animation-delay: 0.2s, 0s;
-  animation-fill-mode: both;
-  opacity: 0;
+	animation-name: zoom, fadein;
+	animation-duration: 0.4s, 0.5s;
+	animation-timing-function: $ease-out-cubic, ease-out;
+	animation-delay: 0.2s, 0s;
+	animation-fill-mode: both;
+	opacity: 0;
 
-  background: genCorners($sec-color);
-  background-repeat: no-repeat;
-  background-size: 30px 30px;
+	background: genCorners($sec-color);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
 
-  &.upper {
-    transform: translateZ(25px);
-  }
-  &.lower {
-    transform: translateZ(-25px);
-  }
+	&.upper {
+		transform: translateZ(25px);
+	}
+	&.lower {
+		transform: translateZ(-25px);
+	}
 }
 
 @import './animations';

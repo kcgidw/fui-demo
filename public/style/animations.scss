@@ -6,15 +6,15 @@
     width: 100%;
   }
 }
-@keyframes flicker-t1 {
+
+@keyframes flicker {
   0%,
   12%,
   25%,
   40%,
   72%,
   87% {
-    border-color: transparent;
-    color: transparent;
+    opacity: 0;
   }
   10%,
   15%,
@@ -24,30 +24,7 @@
   70%,
   75%,
   100% {
-    border-color: $base-color-t1;
-    color: $base-color-t1;
-  }
-}
-@keyframes flicker-t2 {
-  0%,
-  12%,
-  25%,
-  40%,
-  72%,
-  87% {
-    border-color: transparent;
-    color: transparent;
-  }
-  10%,
-  15%,
-  30%,
-  35%,
-  50%,
-  70%,
-  75%,
-  100% {
-    border-color: $base-color-t2;
-    color: $base-color-t2;
+    opacity: 1;
   }
 }
 
