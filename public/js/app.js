@@ -2,7 +2,7 @@ const canv = document.getElementById('gradient-bg');
 const cam = document.getElementById('camera');
 
 const calcHorRotate = (mouseHor) => {
-	const maxAngle = 2;
+	const maxAngle = 2.5;
 	const containerLeft = canv.getBoundingClientRect().left;
 	const containerCenter = containerLeft + canv.clientWidth / 2;
 	const mouseDistToCenter = containerCenter - mouseHor;
@@ -13,7 +13,7 @@ const calcHorRotate = (mouseHor) => {
 };
 
 const calcVerRotate = (mouseVer) => {
-	const maxAngle = 2;
+	const maxAngle = 2.5;
 	const containerTop = canv.getBoundingClientRect().top;
 	const containerCenter = containerTop + canv.clientHeight / 2;
 	const mouseDistToCenter = containerCenter - mouseVer;
@@ -42,8 +42,8 @@ const setZ = (selector, z) => {
 	document.querySelector(selector).style.webkitTransform = `translateZ(${z}px)`;
 };
 
-setZ('#stack1 .box.upper', 30);
-setZ('#stack1 .box.lower', -30);
+setZ('.box.upper', 30);
+setZ('.box.lower', -30);
 
 const windowOpenSfx = new Audio('assets/window-open.wav');
 windowOpenSfx.addEventListener('canplaythrough', (e) => {
