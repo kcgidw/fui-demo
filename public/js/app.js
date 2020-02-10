@@ -42,7 +42,20 @@ const setZ = (selector, z) => {
 	document.querySelector(selector).style.webkitTransform = `translateZ(${z}px)`;
 };
 
-setTimeout(() => {
-	setZ('#stack1 .box.upper', 30);
-	setZ('#stack1 .box.lower', -30);
-}, 0);
+setZ('#stack1 .box.upper', 30);
+setZ('#stack1 .box.lower', -30);
+
+const windowOpenSfx = new Audio('assets/window-open.wav');
+windowOpenSfx.addEventListener('canplaythrough', (e) => {
+	// windowOpenSfx.play();
+});
+
+const animate = (selector, whenStart, removeClass, addClass) => {
+	const el = document.querySelector(selector);
+	setTimeout(() => {
+		el.classList.remove(removeClass);
+		el.classList.add(addClass);
+	}, whenStart * 1000);
+};
+animate('.upper .btn-outer', 0.6, 'initial', 'normal');
+animate('.upper .btn-inner', 0.9, 'initial', 'normal');

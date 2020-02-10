@@ -3,6 +3,7 @@ $base-color-t1: hsla(160, 70, 70, 0.7);
 $base-color-t2: hsla(160, 70, 70, 0.5);
 $sec-color: hsla(25, 70%, 70%, 1);
 $sec-color-t2: hsla(25, 70%, 70%, 0.1);
+$gold: hsl(45, 77%, 80%);
 $ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 
 body {
@@ -52,18 +53,17 @@ body {
 			to bottom,
 			$base-color,
 			$base-color 2px,
-			hsla(0, 0%, 0%, 0%) 4px,
-			hsla(0, 0%, 0%, 0%) 10px,
-			$base-color 12px
+			hsla(0, 0%, 0%, 0%) 3px,
+			hsla(0, 0%, 0%, 0%) 13px
 		),
 		repeating-linear-gradient(
 			to left,
 			$base-color,
 			$base-color 2px,
-			hsla(0, 0%, 0%, 0%) 4px,
-			hsla(0, 0%, 0%, 0%) 10px
+			hsla(0, 0%, 0%, 0%) 3px,
+			hsla(0, 0%, 0%, 0%) 13px
 		);
-	opacity: 0.1;
+	opacity: 0.02;
 	transform: translateZ(0px);
 }
 
@@ -80,26 +80,33 @@ body {
 	height: 100%;
 	transform-style: preserve-3d;
 
+	&.lower {
+		opacity: 0.2;
+	}
+
 	.box {
 		margin: auto;
 		height: 100%;
+		transform-style: preserve-3d;
+		border: 2px solid $base-color-t1;
+		color: $base-color-t1;
+		display: flex;
+		justify-content: center;
+		// overflow: hidden;
 		transition: transform 0.5s $ease-out-cubic, width 0s ease-out;
-		animation-duration: 0.5s, 0.3s;
-		animation-fill-mode: both;
+		animation-duration: 0.4s, 0.3s;
+		// animation-fill-mode: both;
 		animation-timing-function: ease, ease-in-out;
 		animation-delay: 0s;
 		&.upper {
-			border: 2px solid $base-color-t1;
-			color: $base-color-t1;
 			animation-name: flicker, sliding-doors-open;
 		}
 		&.lower {
-			opacity: 0.3;
 			user-select: none;
 			animation-name: flicker, sliding-doors-open;
-			.box-content {
-				opacity: 0.4;
-			}
+		}
+		.box-content {
+			transform-style: preserve-3d;
 		}
 	}
 }
@@ -117,7 +124,7 @@ body {
 	transform-style: preserve-3d;
 
 	&.lower {
-		opacity: 0.4;
+		opacity: 0.2;
 	}
 }
 
@@ -138,8 +145,8 @@ body {
 	height: 100%;
 	box-sizing: border-box;
 
-	animation-name: zoom, fadein;
-	animation-duration: 0.4s, 0.5s;
+	animation-name: zoom-half, fadein-8;
+	animation-duration: 0.3s, 0.5s;
 	animation-timing-function: $ease-out-cubic, ease-out;
 	animation-delay: 0.2s, 0s;
 	animation-fill-mode: both;
@@ -158,3 +165,4 @@ body {
 }
 
 @import './animations';
+@import './button';
