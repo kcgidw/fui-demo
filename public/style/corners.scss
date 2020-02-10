@@ -1,0 +1,45 @@
+@function genCorners($col) {
+	$len: 5px;
+	@return linear-gradient(to right, $col $len, transparent $len) 0 0,
+		linear-gradient(to right, $col $len, transparent $len) 0 100%,
+		linear-gradient(to left, $col $len, transparent $len) 100% 0,
+		linear-gradient(to left, $col $len, transparent $len) 100% 100%,
+		linear-gradient(to bottom, $col $len, transparent $len) 0 0,
+		linear-gradient(to bottom, $col $len, transparent $len) 100% 0,
+		linear-gradient(to top, $col $len, transparent $len) 0 100%,
+		linear-gradient(to top, $col $len, transparent $len) 100% 100%;
+}
+
+.corners-plane {
+	transform: translateZ(20px);
+}
+
+.corners-frame {
+	$pad: 35px;
+	position: absolute;
+	transform-style: preserve-3d;
+	width: calc(600px + #{$pad});
+	height: calc(250px + #{$pad});
+	left: calc(-1 * #{$pad} / 2);
+	top: calc(-1 * #{$pad} / 2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.corners {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+
+	animation-name: zoom-half, fadein-8;
+	animation-duration: 0.3s, 0.5s;
+	animation-timing-function: $ease-out-cubic, ease-out;
+	animation-delay: 0.4s, 0.2s;
+	animation-fill-mode: both;
+
+	background: genCorners($orange);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+}

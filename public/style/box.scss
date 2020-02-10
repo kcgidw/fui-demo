@@ -1,0 +1,47 @@
+.box-frame {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+    transform-style: preserve-3d;
+    
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.box {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transform-style: preserve-3d;
+    border: 2px solid $base-color-t1;
+    color: $base-color;
+    display: flex;
+    justify-content: center;
+
+    &.upper {
+        transition: transform 0.5s $ease-out-cubic, width 0s ease-out;
+        animation-name: flicker, sliding-doors-open;
+        animation-duration: 0.9s, 0.4s;
+        animation-timing-function: ease, $easeinoutquad;
+    }
+
+    &.box-bg.lower {
+        width: 100%;
+        height: 100%;
+        opacity: 0.04;
+        background-color: $base-color;
+        box-shadow: 0 0 3px 3px $base-color;
+        animation-name: sliding-doors-open;
+        animation-duration: 0.4s;
+        animation-timing-function: $easeinoutquad;
+    }
+    
+    .box-content {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+    }
+}

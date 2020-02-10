@@ -1,42 +1,4 @@
-const canv = document.getElementById('gradient-bg');
-const cam = document.getElementById('camera');
-
-const calcHorRotate = (mouseHor) => {
-	const maxAngle = 2.5;
-	const containerLeft = canv.getBoundingClientRect().left;
-	const containerCenter = containerLeft + canv.clientWidth / 2;
-	const mouseDistToCenter = containerCenter - mouseHor;
-	const maxDistToCenter = containerCenter;
-	const ratio = mouseDistToCenter / maxDistToCenter;
-	const angle = ratio * maxAngle;
-	return angle;
-};
-
-const calcVerRotate = (mouseVer) => {
-	const maxAngle = 2.5;
-	const containerTop = canv.getBoundingClientRect().top;
-	const containerCenter = containerTop + canv.clientHeight / 2;
-	const mouseDistToCenter = containerCenter - mouseVer;
-	const maxDistToCenter = containerCenter;
-	const ratio = mouseDistToCenter / maxDistToCenter;
-	const angle = ratio * maxAngle;
-	return angle;
-};
-
-const moveCamera = (e) => {
-	const horDeg = e ? calcHorRotate(e.clientX) : 0;
-	const verDeg = e ? calcVerRotate(e.clientY) : 0;
-	const horBaseAngle = 25;
-	const verBaseAngle = 18;
-	const zBaseAngle = -4;
-	cam.style.webkitTransform = `
-    rotateX(${verBaseAngle - verDeg}deg)
-    rotateY(${horBaseAngle + horDeg}deg)
-    rotateZ(${zBaseAngle}deg)`;
-};
-
-canv.addEventListener('mousemove', moveCamera);
-moveCamera();
+import './camera';
 
 const setZ = (selector, z) => {
 	const el = document.querySelector(selector);
@@ -58,5 +20,31 @@ const animate = (selector, whenStart, removeClass, addClass) => {
 		el.classList.add(addClass);
 	}, whenStart * 1000);
 };
-animate('.upper .btn-outer', 0.7, 'initial', 'normal');
-animate('.upper .btn-inner', 0.8, 'initial', 'normal');
+animate('.upper .btn-outer', 0.6, 'initial', 'normal');
+animate('.upper .btn-inner', 0.7, 'initial', 'normal');
+
+const enterBtnOuter = document.querySelector('.enter-btn.btn-outer');
+const enterBtnInner = document.querySelector('.enter-btn.btn-inner');
+
+const updateBtnClass = () => {
+	if (enterBtnOuter.mouseIsOver || enterBtnInner.mouseIsOver) {
+		enterBtnOuter.classList.add('hover');
+		enterBtnInner.classList.add('hover');
+	} else {
+		enterBtnOuter.classList.remove('hover');
+		enterBtnInner.classList.remove('hover');
+	}
+};
+
+[enterBtnOuter, enterBtnInner].forEach((el) => {
+	el.mouseIsOver = false;
+
+	el.addEventListener('mouseover', (e) => {
+		el.mouseIsOver = true;
+		updateBtnClass();
+	});
+	el.addEventListener('mouseleave', (e) => {
+		el.mouseIsOver = false;
+		updateBtnClass();
+	});
+});

@@ -1,20 +1,33 @@
 $outer-pad: 8px;
 
-.btn {
+.btn-plane {
+	transform: translateZ(10px);
+}
+
+.btn-frame {
+	position: absolute;
+	top: 180px;
 	margin: auto;
+	transform-style: preserve-3d;
+	width: 100%;
+	// height: 100%;
 	display: flex;
-	box-sizing: border-box;
 	align-items: center;
 	justify-content: center;
+}
 
+.btn {
 	transform-style: preserve-3d;
-
-	animation-fill-mode: both;
-
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-size: 24px;
 	cursor: pointer;
-
+	animation-fill-mode: both;
+	
 	&.initial {
+		height: 0px;
 		width: 0px;
 		opacity: 0;
 		transform: translateZ(0px);
@@ -22,54 +35,43 @@ $outer-pad: 8px;
 }
 
 .btn-outer {
-	position: relative;
+	position: absolute;
 	padding: $outer-pad;
-	border: 2px solid $gold;
 	box-sizing: border-box;
-
 	height: 65px;
-	transition: width 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+	border: 2px solid $gold;
+	transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, transform 0.4s ease;
 
 	&.normal {
 		width: 180px;
 		opacity: 1;
-		transform: translateZ(15px);
+		transform: translateZ(5px);
+	}
+
+	&.hover {
+		background-color: $gold-t;
 	}
 }
 
 .btn-inner {
-	border: 2px solid $base-color;
-	overflow: hidden;
-
+	position: absolute;
 	height: 45px;
-	transition: width 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+	border: 2px solid $base-color;
+	box-sizing: border-box;
+	overflow: hidden;
+	user-select: none;
 
+	&.initial {
+		transform: translateZ(0px);
+	}
 	&.normal {
 		width: 150px;
 		opacity: 1;
 		transform: translateZ(15px);
+		transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, transform 0.03s ease;
 	}
 
-	&:hover {
-		// transform: translateZ(40px);
+	&.hover {
+		transform: translateZ(22px);
 	}
 }
-
-// @keyframes btn-zoom {
-// 	0% {
-// 		width: 5%;
-// 		height: 5%;
-// 	}
-// 	100% {
-// 		width: 180px;
-// 		height: 60px;
-// 	}
-// }
-// @keyframes btn-fadein {
-// 	0% {
-// 		opacity: 0;
-// 	}
-// 	100% {
-// 		opacity: 1;
-// 	}
-// }

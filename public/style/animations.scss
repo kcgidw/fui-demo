@@ -1,24 +1,21 @@
 @keyframes sliding-doors-open {
 	0% {
-		height: 80%;
 		width: 0%;
 	}
 	100% {
-		height: 100%;
 		width: 100%;
 	}
 }
 
 @keyframes flicker {
-	0% {
-		opacity: 0;
-	}
+	0%,
 	12%,
 	25%,
-	40%,
-	72%,
-	87%,
-	97% {
+	40% {
+		opacity: 0;
+	}
+	70%,
+	80% {
 		opacity: 0.2;
 	}
 	10%,
@@ -27,8 +24,9 @@
 	30%,
 	35%,
 	50%,
-	70%,
-	75%,
+	65%,
+	74%,
+	86%,
 	100% {
 		opacity: 1;
 	}
