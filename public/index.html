@@ -2,7 +2,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet" />
 	<!-- <link rel="stylesheet" href="./style/main.scss" /> -->
-	<link rel="stylesheet" href="./style.bundle.css" />
+	<link rel="stylesheet" href="style.bundle.css" />
 </head>
 
 <body>
@@ -10,39 +10,32 @@
 		<div id="scene">
 			<div id="camera" class="">
 				<div id="grid-bg" class=""></div>
-				<div class="stack">
-					<div class="corners-frame">
-						<div class="corners upper"></div>
+				<div class="stack-frame">
+					<div class="plane corners-plane">
+						<div class="corners-frame">
+							<div class="corners upper"></div>
+						</div>
 					</div>
-					<!-- <div class="corners-frame lower">
-						<div class="corners"></div>
-					</div> -->
-					<div class="box-frame upper">
-						<div class="box upper">
-							<div class="box-content upper">
-								<p>abc</p>
-								<div class="btn btn-outer initial">
-									<div class="btn btn-inner initial">
-										ENTER
+					<div class="plane box-plane upper">
+						<div class="box-frame upper">
+							<div class="box upper">
+								<div class="box-content upper">
+									<p>abc</p>
+									<div class="plane btn-plane">
+										<div class="btn btn-outer initial">
+											<div class="btn btn-inner initial">
+												ENTER
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="box-frame lower">
-						<div class="box lower  box-bg"></div>
-						<!-- <div class="box lower">
-							<div class="box-content lower">
-								<div class="reflective-opacity">
-									<p>abc</p>
-									<div class="btn btn-outer initial">
-										<div class="btn btn-inner initial">
-											ENTER
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> -->
+					<div class="plane box-plane lower">
+						<div class="box-frame lower">
+							<div class="box lower box-bg"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -50,4 +43,4 @@
 	</div>
 </body>
 
-<script src="./index.bundle.min.js"></script>
+<script src="index.bundle.min.js"></script>

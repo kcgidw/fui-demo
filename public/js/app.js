@@ -39,11 +39,12 @@ canv.addEventListener('mousemove', moveCamera);
 moveCamera();
 
 const setZ = (selector, z) => {
-	document.querySelector(selector).style.webkitTransform = `translateZ(${z}px)`;
+	const el = document.querySelector(selector);
+	el.style.webkitTransform = `translateZ(${z}px)`;
 };
 
-setZ('.box.upper', 30);
-setZ('.box.lower', -30);
+setZ('.box-plane.upper', 30);
+setZ('.box-plane.lower', -30);
 
 const windowOpenSfx = new Audio('assets/window-open.wav');
 windowOpenSfx.addEventListener('canplaythrough', (e) => {

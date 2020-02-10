@@ -1,6 +1,7 @@
 const path = require('path');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env) => {
 	const config = {
@@ -8,14 +9,22 @@ module.exports = (env) => {
 			index: path.resolve(__dirname, 'public', 'js', 'index.js'),
 		},
 		output: {
-			publicPath: path.resolve(__dirname, 'public'),
-			path: path.resolve(__dirname, 'public'),
+			publicPath: path.resolve('/'),
+			path: path.resolve(__dirname, 'dist'),
 			filename: '[name].bundle.min.js',
 		},
 		plugins: [
 			new MiniCssExtractPlugin({
 				filename: 'style.bundle.css',
 			}),
+			// new OptimizeCssAssetsPlugin({
+			// 	assetNameRegExp: /.*\.css$/g,
+			// 	cssProcessor: require('cssnano'),
+			// 	cssProcessorPluginOptions: {
+			// 	  preset: ['default', { discardComments: { removeAll: true } }],
+			// 	},
+			// 	canPrint: true
+			// }),
 		],
 		module: {
 			rules: [
@@ -35,15 +44,17 @@ module.exports = (env) => {
 					],
 				},
 				{
+					test: /\.html$/,
+					loader: [
+						{ loader: 'file-loader', options: { name: '[name].html' } },
+						'extract-loader',
+						'html-loader',
+					],
+				},
+				{
 					test: /\.(sa|sc|c)ss$/,
 					use: [
-						{
-							loader: MiniCssExtractPlugin.loader,
-							options: {
-								// publicPath: path.resolve(__dirname, 'public'),
-							},
-						},
-						// 'style-loader',
+						MiniCssExtractPlugin.loader,
 						{
 							loader: 'css-loader',
 							options: {
@@ -69,20 +80,9 @@ module.exports = (env) => {
 						},
 					],
 				},
-				// {
-				// 	test: /\.html$/,
-				// 	loader: 'html-loader',
-				// },
 			],
 		},
 		resolve: {},
-		devtool: 'source-map',
-		devServer: {
-			contentBase: path.resolve(__dirname, 'public'),
-			compress: true,
-			hot: true,
-			index: 'index.html',
-		},
 	};
 
 	if (env.production) {
@@ -96,6 +96,17 @@ module.exports = (env) => {
 	} else if (env.development) {
 		Object.assign(config, {
 			mode: 'development',
+			devtool: 'source-map',
+			devServer: {
+				// location of bundled files relative to localhost
+				publicPath: '/',
+				// location of static content. Using this to force reloads for 'public'
+				contentBase: path.join(__dirname, 'public'),
+				watchContentBase: true,
+				compress: true,
+				hot: true,
+				index: 'index.html',
+			},
 		});
 	} else {
 		throw new Error('Bad webpack env');

@@ -4,17 +4,19 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"clean": "find public -name *.bundle.* -exec rm {} ; && rm -rf dist",
+		"clean": "rm -rf dist",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "webpack --env.development --watch",
 		"build": "webpack --env.production",
 		"build:dev": "webpack --env.development",
-		"start": "http-server public -p 8080"
+		"devserver": "webpack-dev-server -d --env.development",
+		"start": "http-server dist -p 8080"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"optimize-css-assets-webpack-plugin": "^5.0.3",
 		"webpack-dev-server": "^3.10.3"
 	},
 	"dependencies": {
