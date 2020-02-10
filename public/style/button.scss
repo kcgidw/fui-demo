@@ -3,10 +3,13 @@ $outer-pad: 8px;
 .btn {
 	margin: auto;
 	display: flex;
+	box-sizing: border-box;
 	align-items: center;
 	justify-content: center;
 
 	transform-style: preserve-3d;
+
+	animation-fill-mode: both;
 
 	font-size: 24px;
 	cursor: pointer;
@@ -35,17 +38,16 @@ $outer-pad: 8px;
 }
 
 .btn-inner {
-	border: 1px solid $base-color;
+	border: 2px solid $base-color;
 	overflow: hidden;
 
 	height: 45px;
-	transition: width 0.3s ease opacity 0.2s ease, transform 0.3s ease;
+	transition: width 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
 
 	&.normal {
 		width: 150px;
 		opacity: 1;
 		transform: translateZ(15px);
-		transition: transform 0.1s ease;
 	}
 
 	&:hover {

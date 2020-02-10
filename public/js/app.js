@@ -57,5 +57,5 @@ const animate = (selector, whenStart, removeClass, addClass) => {
 		el.classList.add(addClass);
 	}, whenStart * 1000);
 };
-animate('.upper .btn-outer', 0.6, 'initial', 'normal');
-animate('.upper .btn-inner', 0.9, 'initial', 'normal');
+animate('.upper .btn-outer', 0.7, 'initial', 'normal');
+animate('.upper .btn-inner', 0.8, 'initial', 'normal');
