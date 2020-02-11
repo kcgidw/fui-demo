@@ -6,7 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = (env) => {
 	const config = {
 		entry: {
-			index: path.resolve(__dirname, 'public', 'js', 'index.js'),
+			index: path.resolve(__dirname, 'src', 'js', 'index.js'),
 		},
 		output: {
 			publicPath: path.resolve('/'),
@@ -101,7 +101,7 @@ module.exports = (env) => {
 				// location of bundled files relative to localhost
 				publicPath: '/',
 				// location of static content. Using this to force reloads for 'public'
-				contentBase: path.join(__dirname, 'public'),
+				contentBase: path.join(__dirname, 'src'),
 				watchContentBase: true,
 				compress: true,
 				hot: true,
