@@ -1,4 +1,5 @@
 import './camera';
+import './button';
 
 const setZ = (selector, z) => {
 	const el = document.querySelector(selector);
@@ -22,29 +23,3 @@ const animate = (selector, whenStart, removeClass, addClass) => {
 };
 animate('.upper .btn-outer', 0.6, 'initial', 'normal');
 animate('.upper .btn-inner', 0.7, 'initial', 'normal');
-
-const enterBtnOuter = document.querySelector('.enter-btn.btn-outer');
-const enterBtnInner = document.querySelector('.enter-btn.btn-inner');
-
-const updateBtnClass = () => {
-	if (enterBtnOuter.mouseIsOver || enterBtnInner.mouseIsOver) {
-		enterBtnOuter.classList.add('hover');
-		enterBtnInner.classList.add('hover');
-	} else {
-		enterBtnOuter.classList.remove('hover');
-		enterBtnInner.classList.remove('hover');
-	}
-};
-
-[enterBtnOuter, enterBtnInner].forEach((el) => {
-	el.mouseIsOver = false;
-
-	el.addEventListener('mouseover', (e) => {
-		el.mouseIsOver = true;
-		updateBtnClass();
-	});
-	el.addEventListener('mouseleave', (e) => {
-		el.mouseIsOver = false;
-		updateBtnClass();
-	});
-});
